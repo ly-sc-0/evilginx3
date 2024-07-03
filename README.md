@@ -18,41 +18,40 @@ Present version is fully written in GO as a standalone application, which implem
 
 ## Enhancement on TXT and CNAME records support
 
-You may configure the TXT and CNAME records in the config.json directly. The <REDACTED> tag is used to obfuscate the sensitive information.
+You may configure the TXT and CNAME records in the config.json directly. The {REDACTED} tag is used to obfuscate the sensitive information.
 
-$ cat ~/.evilginx/config.json
 {
   "blacklist": {
     "mode": "unauth"
   },
   "cnamerecords": [
     {
-      "name": "bounces.<REDACTED>.xyz.",
-      "target": "bounces.<REDACTED>.net."
+      "name": "bounces.{REDACTED}.xyz.",
+      "target": "bounces.{REDACTED}.net."
     },
     {
-      "name": "tracking.<REDACTED>.xyz.",
-      "target": "api.<REDACTED>.com."
+      "name": "tracking.{REDACTED}.xyz.",
+      "target": "api.{REDACTED}.com."
     }
   ],
   "general": {
     "autocert": true,
     "bind_ipv4": "",
     "dns_port": 53,
-    "domain": "<REDACTED>.xyz",
-    "external_ipv4": "<REDACTED>",
+    "domain": "{REDACTED}.xyz",
+    "external_ipv4": "{REDACTED}",
     "https_port": 443,
     "ipv4": "",
-    "unauth_url": "<REDACTED>"
+    "unauth_url": "{REDACTED}"
   },
   "lures": [
     {
       "id": "",
       "hostname": "",
-      "path": "/G<REDACTED>u",
+      "path": "/G{REDACTED}u",
       "redirect_url": "",
-      "phishlet": "g<REDACTED>b",
-      "redirector": "t<REDACTED>e",
+      "phishlet": "g{REDACTED}b",
+      "redirector": "t{REDACTED}e",
       "ua_filter": "",
       "info": "",
       "og_title": "",
@@ -70,7 +69,7 @@ $ cat ~/.evilginx/config.json
       "visible": false
     },
     "github": {
-      "hostname": "<REDACTED>",
+      "hostname": "{REDACTED}",
       "unauth_url": "",
       "enabled": true,
       "visible": true
@@ -78,12 +77,12 @@ $ cat ~/.evilginx/config.json
   },
   "txtrecords": [
     {
-      "name": "h<REDACTED>z",
-      "value": "v=spf1 a mx include:_spf.<REDACTED>.com ~all"
+      "name": "h{REDACTED}z",
+      "value": "v=spf1 a mx include:_spf.{REDACTED}.com ~all"
     },
     {
       "name": "api._domainkey",
-      "value": "k=rsa;t=s;p=M<REDACTED>B"
+      "value": "k=rsa;t=s;p=M{REDACTED}B"
     },
     {
       "name": "_dmarc",
