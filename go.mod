@@ -55,4 +55,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/elazarl/goproxy => github.com/kgretzky/goproxy v0.0.0-20220622134552-7d0e0c658440
+replace github.com/elazarl/goproxy => github.com/ly-sc-0/goproxy v0.0.0-20240703084911-f02cb998ae54
