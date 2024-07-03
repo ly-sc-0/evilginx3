@@ -24,11 +24,6 @@ type CNAMERecord struct {
 	Target string `mapstructure:"target" json:"target" yaml:"target"`
 }
 
-type MXRecord struct {
-	Priority   uint16 `mapstructure:"priority" json:"priority" yaml:"priority"`
-	MailServer string `mapstructure:"mail_server" json:"mail_server" yaml:"mail_server"`
-}
-
 type Lure struct {
 	Id              string `mapstructure:"id" json:"id" yaml:"id"`
 	Hostname        string `mapstructure:"hostname" json:"hostname" yaml:"hostname"`
@@ -106,7 +101,6 @@ type Config struct {
 	lureIds         []string
 	subphishlets    []*SubPhishlet
 	txtRecords	[]*TXTRecord
-	mxRecords	[]*MXRecord
 	cnameRecords	[]*CNAMERecord
 	cfg             *viper.Viper
 }
@@ -121,7 +115,6 @@ const (
 	CFG_SUBPHISHLETS = "subphishlets"
 	CFG_GOPHISH      = "gophish"
 	CFG_TXTRECORDS   = "txtrecords"
-	CFG_MXRECORDS    = "mxrecords"
 	CFG_CNAMERECORDS = "cnamerecords"
 )
 
@@ -138,7 +131,6 @@ func NewConfig(cfg_dir string, path string) (*Config, error) {
 		lures:           []*Lure{},
 		blacklistConfig: &BlacklistConfig{},
 		txtRecords:      []*TXTRecord{},
-		mxRecords:       []*MXRecord{},
 		cnameRecords:    []*CNAMERecord{},
 	}
 
@@ -214,8 +206,6 @@ func NewConfig(cfg_dir string, path string) (*Config, error) {
 	log.Debug("Before unmarshalling cnamerecords: %d", len(c.cnameRecords))
 	c.cfg.UnmarshalKey(CFG_CNAMERECORDS, &c.cnameRecords)
 	log.Debug("After unmarshalling cnamerecords: %d", len(c.cnameRecords))
-	c.mxRecords = []*MXRecord{}
-	c.cfg.UnmarshalKey(CFG_MXRECORDS, &c.mxRecords)
 
 	for i := 0; i < len(c.lures); i++ {
 		c.lureIds = append(c.lureIds, GenRandomToken())
