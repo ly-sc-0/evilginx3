@@ -5,7 +5,7 @@
   </p>
 </p>
 
-# Evilginx 3.0
+# Evilginx 3.3.x
 
 **Evilginx** is a man-in-the-middle attack framework used for phishing login credentials along with session cookies, which in turn allows to bypass 2-factor authentication protection.
 
@@ -15,6 +15,82 @@ Present version is fully written in GO as a standalone application, which implem
 <p align="center">
   <img alt="Screenshot" src="https://raw.githubusercontent.com/kgretzky/evilginx2/master/media/img/screen.png" height="320" />
 </p>
+
+## Enhancement on TXT and CNAME records support
+
+You may configure the TXT and CNAME records in the config.json directly. The <REDACTED> tag is used to obfuscate the sensitive information.
+
+$ cat ~/.evilginx/config.json
+{
+  "blacklist": {
+    "mode": "unauth"
+  },
+  "cnamerecords": [
+    {
+      "name": "bounces.<REDACTED>.xyz.",
+      "target": "bounces.<REDACTED>.net."
+    },
+    {
+      "name": "tracking.<REDACTED>.xyz.",
+      "target": "api.<REDACTED>.com."
+    }
+  ],
+  "general": {
+    "autocert": true,
+    "bind_ipv4": "",
+    "dns_port": 53,
+    "domain": "<REDACTED>.xyz",
+    "external_ipv4": "<REDACTED>",
+    "https_port": 443,
+    "ipv4": "",
+    "unauth_url": "<REDACTED>"
+  },
+  "lures": [
+    {
+      "id": "",
+      "hostname": "",
+      "path": "/G<REDACTED>u",
+      "redirect_url": "",
+      "phishlet": "g<REDACTED>b",
+      "redirector": "t<REDACTED>e",
+      "ua_filter": "",
+      "info": "",
+      "og_title": "",
+      "og_desc": "",
+      "og_image": "",
+      "og_url": "",
+      "paused": 0
+    }
+  ],
+  "phishlets": {
+    "example": {
+      "hostname": "",
+      "unauth_url": "",
+      "enabled": false,
+      "visible": false
+    },
+    "github": {
+      "hostname": "<REDACTED>",
+      "unauth_url": "",
+      "enabled": true,
+      "visible": true
+    }
+  },
+  "txtrecords": [
+    {
+      "name": "h<REDACTED>z",
+      "value": "v=spf1 a mx include:_spf.<REDACTED>.com ~all"
+    },
+    {
+      "name": "api._domainkey",
+      "value": "k=rsa;t=s;p=M<REDACTED>B"
+    },
+    {
+      "name": "_dmarc",
+      "value": "v=DMARC1;p=quarantine;pct=100;"
+    }
+  ]
+}
 
 ## Disclaimer
 
