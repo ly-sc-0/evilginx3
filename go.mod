@@ -1,4 +1,4 @@
-module github.com/ly-sc-0/evilginx3
+module github.com/kgretzky/evilginx2
 
 go 1.22.5
 
@@ -23,7 +23,6 @@ require (
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/kgretzky/evilginx2 v0.0.0-20240424192422-9e3248471968 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/libdns/libdns v0.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect

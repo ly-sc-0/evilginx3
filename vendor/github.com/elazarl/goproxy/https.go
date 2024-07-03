@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"crypto/tls"
 	"errors"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net"
@@ -78,15 +77,10 @@ func (proxy *ProxyHttpServer) dial(network, addr string) (c net.Conn, err error)
 	return net.Dial(network, addr)
 }
 
-func (proxy *ProxyHttpServer) connectDial(ctx *ProxyCtx, network, addr string) (c net.Conn, err error) {
-	if proxy.ConnectDialWithReq == nil && proxy.ConnectDial == nil {
+func (proxy *ProxyHttpServer) connectDial(network, addr string) (c net.Conn, err error) {
+	if proxy.ConnectDial == nil {
 		return proxy.dial(network, addr)
 	}
-
-	if proxy.ConnectDialWithReq != nil {
-		return proxy.ConnectDialWithReq(ctx.Req, network, addr)
-	}
-
 	return proxy.ConnectDial(network, addr)
 }
 
@@ -128,9 +122,8 @@ func (proxy *ProxyHttpServer) handleHttps(w http.ResponseWriter, r *http.Request
 		if !hasPort.MatchString(host) {
 			host += ":80"
 		}
-		targetSiteCon, err := proxy.connectDial(ctx, "tcp", host)
+		targetSiteCon, err := proxy.connectDial("tcp", host)
 		if err != nil {
-			ctx.Warnf("Error dialing to %s: %s", host, err.Error())
 			httpError(proxyClient, ctx, err)
 			return
 		}
@@ -160,7 +153,7 @@ func (proxy *ProxyHttpServer) handleHttps(w http.ResponseWriter, r *http.Request
 	case ConnectHTTPMitm:
 		proxyClient.Write([]byte("HTTP/1.0 200 OK\r\n\r\n"))
 		ctx.Logf("Assuming CONNECT is plain HTTP tunneling, mitm proxying it")
-		targetSiteCon, err := proxy.connectDial(ctx, "tcp", host)
+		targetSiteCon, err := proxy.connectDial("tcp", host)
 		if err != nil {
 			ctx.Warnf("Error dialing to %s: %s", host, err.Error())
 			return
@@ -248,20 +241,11 @@ func (proxy *ProxyHttpServer) handleHttps(w http.ResponseWriter, r *http.Request
 						return
 					}
 					if err != nil {
-						if req.URL != nil {
-							ctx.Warnf("Illegal URL %s", "https://"+r.Host+req.URL.Path)
-						} else {
-							ctx.Warnf("Illegal URL %s", "https://"+r.Host)
-						}
+						ctx.Warnf("Illegal URL %s", "https://"+r.Host+req.URL.Path)
 						return
 					}
 					removeProxyHeaders(ctx, req)
-					resp, err = func() (*http.Response, error) {
-						// explicitly discard request body to avoid data races in certain RoundTripper implementations
-						// see https://github.com/golang/go/issues/61596#issuecomment-1652345131
-						defer req.Body.Close()
-						return ctx.RoundTrip(req)
-					}()
+					resp, err = ctx.RoundTrip(req)
 					if err != nil {
 						ctx.Warnf("Cannot read TLS response from mitm'd server %v", err)
 						return
@@ -335,8 +319,7 @@ func (proxy *ProxyHttpServer) handleHttps(w http.ResponseWriter, r *http.Request
 }
 
 func httpError(w io.WriteCloser, ctx *ProxyCtx, err error) {
-	errStr := fmt.Sprintf("HTTP/1.1 502 Bad Gateway\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s", len(err.Error()), err.Error())
-	if _, err := io.WriteString(w, errStr); err != nil {
+	if _, err := io.WriteString(w, "HTTP/1.1 502 Bad Gateway\r\n\r\n"); err != nil {
 		ctx.Warnf("Error responding to client: %s", err)
 	}
 	if err := w.Close(); err != nil {
@@ -381,7 +364,7 @@ func (proxy *ProxyHttpServer) NewConnectDialToProxyWithHandler(https_proxy strin
 		return nil
 	}
 	if u.Scheme == "" || u.Scheme == "http" {
-		if !strings.ContainsRune(u.Host, ':') {
+		if strings.IndexRune(u.Host, ':') == -1 {
 			u.Host += ":80"
 		}
 		return func(network, addr string) (net.Conn, error) {
@@ -421,7 +404,7 @@ func (proxy *ProxyHttpServer) NewConnectDialToProxyWithHandler(https_proxy strin
 		}
 	}
 	if u.Scheme == "https" || u.Scheme == "wss" {
-		if !strings.ContainsRune(u.Host, ':') {
+		if strings.IndexRune(u.Host, ':') == -1 {
 			u.Host += ":443"
 		}
 		return func(network, addr string) (net.Conn, error) {

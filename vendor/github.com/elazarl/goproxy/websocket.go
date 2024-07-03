@@ -58,7 +58,7 @@ func (proxy *ProxyHttpServer) serveWebsocket(ctx *ProxyCtx, w http.ResponseWrite
 	}
 	targetURL := url.URL{Scheme: "ws", Host: host, Path: req.URL.Path}
 
-	targetConn, err := proxy.connectDial(ctx, "tcp", targetURL.Host)
+	targetConn, err := proxy.connectDial("tcp", targetURL.Host)
 	if err != nil {
 		ctx.Warnf("Error dialing target site: %v", err)
 		return
