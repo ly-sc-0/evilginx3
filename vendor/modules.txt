@@ -7,7 +7,7 @@ github.com/cenkalti/backoff/v3
 # github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 ## explicit
 github.com/chzyer/readline
-# github.com/elazarl/goproxy v0.0.0-20220529153421-8ea89ba92021 => github.com/kgretzky/goproxy v0.0.0-20220622134552-7d0e0c658440
+# github.com/elazarl/goproxy v0.0.0-20220529153421-8ea89ba92021 => github.com/ly-sc-0/goproxy v0.0.0-20240703084911-f02cb998ae54
 ## explicit
 github.com/elazarl/goproxy
 # github.com/fatih/color v1.13.0
@@ -215,4 +215,4 @@ gopkg.in/square/go-jose.v2/json
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
-# github.com/elazarl/goproxy => github.com/kgretzky/goproxy v0.0.0-20220622134552-7d0e0c658440
+# github.com/elazarl/goproxy => github.com/ly-sc-0/goproxy v0.0.0-20240703084911-f02cb998ae54
