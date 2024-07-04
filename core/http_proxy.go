@@ -550,7 +550,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 							}
 
 							path := filepath.Join(t_dir, rel_path)
-							if _, err := os.Stat(path); !os.IsNotExist(err) {
+							if _, err := os.Stat(path); !os.IsNotExist(err) && rel_path != "" {
 								fdata, err := ioutil.ReadFile(path)
 								if err == nil {
 									//log.Debug("ext: %s", filepath.Ext(req_path))
