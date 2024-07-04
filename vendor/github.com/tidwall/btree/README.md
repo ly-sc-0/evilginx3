@@ -10,6 +10,7 @@ An efficient [B-tree](https://en.wikipedia.org/wiki/B-tree) implementation in Go
 - `Map` and `Set` types for ordered key-value maps and sets,
 - Fast bulk loading for pre-ordered data using the `Load()` method.
 - `Copy()` method with copy-on-write support.
+- Thread-safe operations.
 - [Path hinting](PATH_HINT.md) optimization for operations with nearby keys.
 
 ## Using
@@ -26,15 +27,16 @@ This package includes the following types of B-trees:
 
 - [`btree.Map`](#btreemap):
 A fast B-tree for storing ordered key value pairs.
-
+Go 1.18+ 
 - [`btree.Set`](#btreeset):
 Like `Map`, but only for storing keys.
-
-- [`btree.BTreeG`](#btreebtreeg):
-A feature-rich B-tree for storing data using a custom comparator. Thread-safe.
-
+Go 1.18+
+- [`btree.BTreeG`](#btreegeneric):
+A feature-rich B-tree for storing data using a custom comparator.
+Go 1.18+
 - [`btree.BTree`](#btreebtree):
-Like `BTreeG` but uses the `interface{}` type for data. Backwards compatible. Thread-safe.
+Like `BTreeG` but uses the `interface{}` type for data. Backwards compatible.
+Go 1.16+
 
 ### btree.Map
 
@@ -219,9 +221,6 @@ Load(item)              // load presorted items into tree
 SetHint(item, *hint)    // insert or replace an existing item
 GetHint(item, *hint)    // get an existing item
 DeleteHint(item, *hint) // delete an item
-AscendHint(key, iter, *hint)
-DescendHint(key, iter, *hint)
-SeekHint(key, iter, *hint)
 
 // Copy-on-write
 Copy()                  // copy the btree
@@ -342,9 +341,6 @@ Load(item)              // load presorted items into tree
 SetHint(item, *hint)    // insert or replace an existing item
 GetHint(item, *hint)    // get an existing item
 DeleteHint(item, *hint) // delete an item
-AscendHint(key, iter, *hint)
-DescendHint(key, iter, *hint)
-SeekHint(key, iter, *hint)
 
 // Copy-on-write
 Copy()                  // copy the btree
