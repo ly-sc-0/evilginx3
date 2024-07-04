@@ -3,7 +3,7 @@ package core
 import (
 	"time"
 
-	"github.com/kgretzky/evilginx2/database"
+	"github.com/ly-sc-0/evilginx3/database"
 )
 
 type Session struct {

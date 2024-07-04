@@ -10,9 +10,9 @@ import (
 	"regexp"
 
 	"github.com/caddyserver/certmagic"
-	"github.com/kgretzky/evilginx2/core"
-	"github.com/kgretzky/evilginx2/database"
-	"github.com/kgretzky/evilginx2/log"
+	"github.com/ly-sc-0/evilginx3/core"
+	"github.com/ly-sc-0/evilginx3/database"
+	"github.com/ly-sc-0/evilginx3/log"
 	"go.uber.org/zap"
 
 	"github.com/fatih/color"

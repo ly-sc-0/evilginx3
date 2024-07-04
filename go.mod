@@ -1,4 +1,4 @@
-module github.com/kgretzky/evilginx2
+module github.com/ly-sc-0/evilginx3
 
 go 1.22.5
 
@@ -7,7 +7,7 @@ require (
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/elazarl/goproxy v0.0.0-20230731152917-f99041a5c027
 	github.com/fatih/color v1.13.0
-	github.com/go-acme/lego/v3 v3.1.0
+	github.com/go-acme/lego/v3 v3.9.0
 	github.com/go-resty/resty/v2 v2.12.0
 	github.com/gorilla/mux v1.7.3
 	github.com/inconshreveable/go-vhost v0.0.0-20160627193104-06d84117953b
@@ -21,6 +21,7 @@ require (
 
 require (
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
+	github.com/cenkalti/backoff/v4 v4.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect

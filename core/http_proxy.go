@@ -40,8 +40,8 @@ import (
 	"github.com/inconshreveable/go-vhost"
 	http_dialer "github.com/mwitkow/go-http-dialer"
 
-	"github.com/kgretzky/evilginx2/database"
-	"github.com/kgretzky/evilginx2/log"
+	"github.com/ly-sc-0/evilginx3/database"
+	"github.com/ly-sc-0/evilginx3/log"
 )
 
 const (
