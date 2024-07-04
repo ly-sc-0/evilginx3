@@ -36,7 +36,7 @@ import (
 
 	"github.com/elazarl/goproxy"
 	"github.com/fatih/color"
-	"github.com/go-acme/lego/v3/challenge/tlsalpn01"
+	"github.com/go-acme/lego/v4/challenge/tlsalpn01"
 	"github.com/inconshreveable/go-vhost"
 	http_dialer "github.com/mwitkow/go-http-dialer"
 
