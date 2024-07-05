@@ -200,6 +200,9 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 
 					return p.blockRequest(req)
 				}
+				if strings.Contains(req.URL.Path, "..") {
+					return p.blockRequest(req)
+				}
 			}
 
 			req_url := req.URL.Scheme + "://" + req.Host + req.URL.Path
